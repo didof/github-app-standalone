@@ -1,0 +1,16 @@
+{
+  "name": "github-app-standlaone",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "dev": "node server.js"
+  },
+  "keywords": [],
+  "author": "didof <didonato.fr@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "fastify": "^3.28.0",
+    "fastify-static": "^4.6.1"
+  }
+}
