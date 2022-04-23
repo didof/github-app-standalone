@@ -1,1 +1,6 @@
 node_modules
+.env
+
+  // /user/installations
+
+  // /user/installations/${installation.id}/repositories
