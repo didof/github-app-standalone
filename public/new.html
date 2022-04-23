@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Welcome</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  </head>
+  <body>
+    <h1>Welcome</h1>
+
+    <a
+      href="https://github.com/apps/post-github-app-standalone/installations/new"
+      >Change permissions</a
+    >
+
+    <script>
+      const access_token = new URL(window.location).searchParams.get(
+        "access_token"
+      );
+
+      localStorage.setItem("access_token", access_token);
+
+      const githubAPI = axios.create({
+        baseURL: "https://api.github.com",
+        headers: {
+          Accept: "application/vnd.github.v3+json",
+        },
+      });
+
+      const authorizationConf = {
+        headers: {
+          authorization: `token ${access_token}`,
+        },
+      };
+
+      (async () => {
+        const installationsResponse = await githubAPI.get(
+          "user/installations",
+          authorizationConf
+        );
+
+        const promises = installationsResponse.data.installations.map(
+          (installation) => {
+            return githubAPI.get(
+              `user/installations/${installation.id}/repositories`,
+              authorizationConf
+            );
+          }
+        );
+
+        const responses = await axios.all(promises);
+
+        const repos = responses.map((response) => {
+          return response.data.repositories;
+        });
+
+        console.log(repos);
+      })();
+    </script>
+  </body>
+</html>

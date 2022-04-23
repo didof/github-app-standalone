@@ -24,14 +24,14 @@ server.get("/oauth/github/login/callback", async (request, reply) => {
 
   const { access_token } = response.data;
 
-  const redirectionURL = new URL("welcome", "http://localhost:3000");
+  const redirectionURL = new URL("new", "http://localhost:3000");
   redirectionURL.searchParams.set("access_token", access_token);
 
   reply.status(302).header("Location", redirectionURL).send();
 });
 
-server.get("/welcome", (request, reply) => {
-  return reply.sendFile("welcome.html");
+server.get("/new", (request, reply) => {
+  return reply.sendFile("new.html");
 });
 
 server.get("/", (request, reply) => {
