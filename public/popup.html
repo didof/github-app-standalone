@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Loading</title>
+  </head>
+  <body>
+    <script>
+      if (window.opener == null) window.location = "/";
+
+      const access_token = new URL(window.location).searchParams.get(
+        "access_token"
+      );
+
+      window.opener.postMessage(access_token);
+
+      window.close();
+    </script>
+  </body>
+</html>
